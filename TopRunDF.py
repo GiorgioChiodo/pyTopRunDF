@@ -48,7 +48,7 @@ if __name__ == "__main__":
                 artificial_raster_height = rasterio.open(workpath / "elevation.asc")
             else:
                 artificial_height = float(artificial_height)
-
+            eventname=input.iloc[0,1]
             # Open the DEM file
             dataset = rasterio.open(workpath / "topofan.asc")
             band = dataset.read(1)
@@ -192,7 +192,7 @@ if __name__ == "__main__":
             cmap = plt.cm.OrRd
             cmap.set_bad(color="white")
             fig, ax = plt.subplots()
-            ax.set_title("Deposition")
+            ax.set_title(f"Deposition - {eventname}")
             prism_extent = [
                 prism_xll,
                 prism_xll + prism_cols * prism_cs,
