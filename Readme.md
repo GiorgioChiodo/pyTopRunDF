@@ -4,9 +4,8 @@ A model to simulate the potential deposition of a debris flow.
 
 ## Features
 
--   Monte Carlo simulation for deposition modeling.
--   Hillshade generation from DEM data.
--   Dockerized environment for consistent execution.
+-   Model potential 2D debris-flow deposition (heights) based on a given event volume and a mobility coefficient.
+-   Accounts for the fan topography
 
 ## Requirements
 
