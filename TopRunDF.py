@@ -30,7 +30,6 @@ if __name__ == "__main__":
     # Change to the script's directory
     script_dir = Path(__file__).parent
     os.chdir(script_dir)
-
     fin = None
     try:
         # Read the input.csv file
@@ -41,7 +40,7 @@ if __name__ == "__main__":
         print("Error reading input.csv:", err)
     else:
         # Extract the work path
-        workpath = Path(input.iloc[0, 1])
+        workpath = script_dir / "DEM"
         try:
             # Check if artificial height is specified
             artificial_height = input.iloc[3, 1]
