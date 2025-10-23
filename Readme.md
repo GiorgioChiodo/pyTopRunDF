@@ -1,11 +1,11 @@
 # pyTopRunDF
 
-A model to simulate the potential deposition of a debris flow.
+A two dimensional runout simulation tool for debris flows to predict inundation areas on torrential fans.
 
 ## Features
 
 -   Model potential 2D debris-flow deposition (heights) based on a given event volume and a mobility coefficient.
--   Accounts for the fan topography
+-   Accounts for the fan topography.
 
 ## Instructions
 
