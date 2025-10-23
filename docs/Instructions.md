@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Instruction
 
 ## Preprocessing
@@ -29,9 +23,12 @@ the projection of the digital terrain input model
 
 The mobility coefficient $k_B$ is a dimensionless parameter and has to
 be defined by the user. For back calculation it is recommended to
-estimate $k_{obs}$ using the empirical relation: $$
+estimate $k_{obs}$ using the empirical relation: 
+
+$
 k_{obs}=B_{obs}V_{obs}^{-2/3} \tag{1}
-$$
+$
+
 In equation (1), $B_{obs} is the planimetric deposition area [$L^2$] and $V_{obs}$ the observed volume [$L^3$].
 In order to perform a forward analysis, $k_{Bpred}$ a mobility coefficient based on the average slope of the channel $S_c$
 as well as the average slope of the fan $S_f$, can bei estimated [Scheidl and Rickenmann, 2009](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897)
