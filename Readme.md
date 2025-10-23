@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # pyTopRunDF
 
 A model to simulate the potential deposition of a debris flow.
@@ -15,7 +9,7 @@ A model to simulate the potential deposition of a debris flow.
 
 ## Instructions
 
-- See [instructions](docs/Instructions.md)
+-   See [instructions](docs/Instructions.md)
 
 ## Requirements
 
