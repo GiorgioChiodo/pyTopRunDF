@@ -1,3 +1,9 @@
+---
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
 # pyTopRunDF
 
 A model to simulate the potential deposition of a debris flow.
@@ -6,6 +12,10 @@ A model to simulate the potential deposition of a debris flow.
 
 -   Model potential 2D debris-flow deposition (heights) based on a given event volume and a mobility coefficient.
 -   Accounts for the fan topography
+
+## Instructions
+
+- See [instructions](docs/Instructions.md)
 
 ## Requirements
 
@@ -64,14 +74,18 @@ python TopRunDF.py
 
 ### Step 5: View the Results
 
-The script will generate output files (e.g., depo.asc) and display a plot of the results. Check the output directory for the generated files.
+The script will generate output files (e.g., depo.asc) and display a plot of the results.
+Check the output directory for the generated files.
 
 Project Structure:
 
 ```         
-TopRunDF.py: Main script for the simulation.
-RandomSingleFlow.py: External Python file for random walk logic.
-input.csv: Input data file.
-requirements.txt: Python dependencies.
-/DEM/topofan.asc: Input digital terrain model (DTM)
+pyTopRunDF/
+├── TopRunDF.py:          Main script for the simulation.
+├── input.csv:            Input data file.
+├── DEM/
+│   ├── topofan.asc:      Input digital terrain model (DTM).
+│   └── depo.asc:         Output deposition raster.
+├── RandomSingleFlow.py:  External Python file for random walk logic.
+└── requirements.txt:     Python dependencies.
 ```
