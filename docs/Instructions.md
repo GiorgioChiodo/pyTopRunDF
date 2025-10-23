@@ -6,11 +6,11 @@ Before starting a simulation with TopRunDF the following steps and
 procedures have to be accomplished and considered by the user. The main
 input parameters are:
 
--   A volume of the debris-flow event to be simulated. [$m^3$]
+-   A volume of the debris-flow event to be simulated. $[m^3]$
 
 -   A mobility coefficient [-]
 
--   A start point of the simulation [X\|Y] - A digital terrain model
+-   A start point of the simulation [X \| Y] - A digital terrain model
     [ASCII-file format]
 
 ### Debris-flow event volume
