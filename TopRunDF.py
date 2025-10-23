@@ -7,7 +7,8 @@ import pandas as pd
 from pathlib import Path  # For cross-platform path handling
 import matplotlib.pyplot as plt
 import RandomSingleFlow as randomsfp
-
+#################################################################################################
+# Funktion zur Erstellung eines Hillshades basierend auf einem digitalen Höhenmodell
 def hillshade(array, azimuth, angle_altitude):
     """Creates a shaded relief file from a DEM."""
     from numpy import gradient, pi, arctan, arctan2, sin, cos, sqrt
@@ -23,7 +24,17 @@ def hillshade(array, azimuth, angle_altitude):
         + cos(altituderad) * cos(slope) * cos(azimuthrad - aspect)
     )
     return 255 * (shaded + 1) / 2
-
+#################################################################################################
+# Funktion zur Adaptierung unterschiedlicher Dezimaltrennzeichen
+def parse_decimal(input_string):
+    # Prüfen, ob ein Komma als Dezimaltrennzeichen verwendet wird
+    if ',' in input_string and '.' not in input_string:
+        input_string = input_string.replace(',', '.')
+    try:
+        return float(input_string)
+    except ValueError:
+        raise ValueError("Invalid input. Please enter a number with a valid decimal separator.")
+#################################################################################################
 
 # Start of the main script
 if __name__ == "__main__":
@@ -47,7 +58,8 @@ if __name__ == "__main__":
             if artificial_height == "elevation":
                 artificial_raster_height = rasterio.open(workpath / "elevation.asc")
             else:
-                artificial_height = float(artificial_height)
+                #artificial_height = float(artificial_height)
+                artificial_height = parse_decimal(artificial_height)
             eventname=input.iloc[0,1]
             # Open the DEM file
             dataset = rasterio.open(workpath / "topofan.asc")
@@ -61,10 +73,10 @@ if __name__ == "__main__":
             print("Error processing DEM or artificial height:", err1)
         else:
             # Extract simulation parameters
-            XKoord = float(input.iloc[1, 1])
-            YKoord = float(input.iloc[2, 1])
-            volume = float(input.iloc[4, 1])
-            coefficient = float(input.iloc[5, 1])
+            XKoord = parse_decimal(input.iloc[1, 1])
+            YKoord = parse_decimal(input.iloc[2, 1])
+            volume = parse_decimal(input.iloc[4, 1])
+            coefficient = parse_decimal(input.iloc[5, 1])
             gridsize = dataset.res[0]
 
             simarea = volume ** (2 / 3) * coefficient
