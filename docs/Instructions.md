@@ -10,8 +10,9 @@ input parameters are:
 
 -   A mobility coefficient [-]
 
--   A start point of the simulation [X \| Y] - A digital terrain model
-    [ASCII-file format]
+-   A start point of the simulation [X \| Y] 
+  
+-   A digital terrain model [ASCII-file format]
 
 ### Debris-flow event volume
 
