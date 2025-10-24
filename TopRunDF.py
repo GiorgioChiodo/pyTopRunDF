@@ -3,6 +3,7 @@ import rasterio
 import os
 import sys
 import numpy as np
+import json 
 import pandas as pd
 from pathlib import Path  # For cross-platform path handling
 import matplotlib.pyplot as plt
@@ -44,23 +45,24 @@ if __name__ == "__main__":
     fin = None
     try:
         # Read the input.csv file
-        input_file = script_dir / "input.csv"
-        input = pd.read_csv(input_file, sep="\t", decimal=".", header=None, encoding="utf-8")
+        input_file = script_dir / "input.json"
+        with open(input_file, "r", encoding="utf-8") as f:
+            input_data = json.load(f)  # JSON-Daten einlesen
     except BaseException as err:
         fin = "terminated"
-        print("Error reading input.csv:", err)
+        print("Error reading input.json:", err)
     else:
         # Extract the work path
         workpath = script_dir / "DEM"
         try:
             # Check if artificial height is specified
-            artificial_height = input.iloc[3, 1]
+            artificial_height = input_data["energy_height"]
             if artificial_height == "elevation":
                 artificial_raster_height = rasterio.open(workpath / "elevation.asc")
             else:
                 #artificial_height = float(artificial_height)
-                artificial_height = parse_decimal(artificial_height)
-            eventname=input.iloc[0,1]
+                artificial_height = parse_decimal(str(artificial_height))
+            eventname=input_data["name"]
             # Open the DEM file
             dataset = rasterio.open(workpath / "topofan.asc")
             band = dataset.read(1)
@@ -70,13 +72,13 @@ if __name__ == "__main__":
 
         except BaseException as err1:
             fin = "terminated"
-            print("Error processing DEM or artificial height:", err1)
+            print("Error processing DEM or energy height too low:", err1)
         else:
             # Extract simulation parameters
-            XKoord = parse_decimal(input.iloc[1, 1])
-            YKoord = parse_decimal(input.iloc[2, 1])
-            volume = parse_decimal(input.iloc[4, 1])
-            coefficient = parse_decimal(input.iloc[5, 1])
+            XKoord = parse_decimal(str(input_data["X_coord"]))
+            YKoord = parse_decimal(str(input_data["Y_coord"]))
+            volume = parse_decimal(str(input_data["volume"]))
+            coefficient = parse_decimal(str(input_data["coefficient"]))
             gridsize = dataset.res[0]
 
             simarea = volume ** (2 / 3) * coefficient
