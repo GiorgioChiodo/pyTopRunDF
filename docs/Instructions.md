@@ -4,28 +4,36 @@
 
 Before starting a simulation with TopRunDF the following steps and procedures have to be accomplished and considered by the user. The main input parameters are:
 
-**A volume of the debris-flow event to be simulated**
+**A volume of the debris-flow event to be simulated -** $V$
 
 The volume must correspond to the unit of length measurement used for the projection of the digital terrain input model [topofan.asc](topofan.asc). In the example the volume is given in $m^3$.
 
-**input.json**\
+**input.json**: $V=5000 m^3$\
 `"volume": 5000,`
 
-**A mobility coefficient**
+**A mobility coefficient -** $k_B$
 
-> The mobility coefficient $k_B$ is a dimensionless parameter and has to be defined by the user. For back calculation it is recommended to estimate $k_{obs}$ using the empirical relation:
->
-> $k_{obs}=B_{obs}V_{obs}^{-2/3}$ (1)
->
-> In equation (1), $B_{obs}$ is the planimetric deposition area $[L^2]$ and $V_{obs}$ the observed volume $[L^3]$. In order to perform a forward analysis, $k_{Bpred}$ a mobility coefficient based on the average slope of the channel $S_c$ as well as the average slope of the fan $S_f$, can bei estimated [(Scheidl and Rickenmann, 2009)](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897).
->
-> $k_{Bpred}=5.07S_f^{-0.10}S_c^{-1.68}$ (2)
->
-> If $k_{Bpred}$ is used, an uncertainty of a factor of two must be considered. See [Rickenmann et al. (2009)](https://www.e-periodica.ch/digbib/view?pid=wel-004%3A2010%3A102%3A%3A42) (in german), [Scheidl and Rickenmann, 2009](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897) for more details.
+The mobility coefficient $k_B$ is a dimensionless parameter and has to be defined by the user. For back calculation it is recommended to estimate $k_{obs}$ using the empirical relation:
 
-**A start point of the simulation**
+$k_{obs}=B_{obs}V_{obs}^{-2/3}$ (1)
 
-> 
+In equation (1), $B_{obs}$ is the planimetric deposition area $[L^2]$ and $V_{obs}$ the observed volume $[L^3]$. In order to perform a forward analysis, $k_{Bpred}$ a mobility coefficient based on the average slope of the channel $S_c$ as well as the average slope of the fan $S_f$, can bei estimated [(Scheidl and Rickenmann, 2009)](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897).
+
+$k_{Bpred}=5.07S_f^{-0.10}S_c^{-1.68}$ (2)
+
+If $k_{Bpred}$ is used, an uncertainty of a factor of two must be considered. See [Rickenmann et al. (2009)](https://www.e-periodica.ch/digbib/view?pid=wel-004%3A2010%3A102%3A%3A42) (in german), [Scheidl and Rickenmann, 2009](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897) for more details.
+
+**input.json**: $k_B=20$\
+`"coefficient": 20`
+
+**A start point of the simulation -** $X | Y$
+
+The user needs to declare a starting point of the simulation in $X$ (easting) and $Y$ (northing) coordinates. Those coordinates must lay within the applied digital terrain model and have to be defined in the same projection.\
+Starting point can be a distinct change within the longitudinal flow-profile (significant change in slope gradient at fan apex) or obstacles forcing the debris flow to deposit. TopRunDF reacts sensitively to the starting point, which is why the program changes the starting point after each single flow path and randomly sets a new one in a buffer around the initial starting cell (default maximum buffer = 3 cells). However, the user might need to accomplish maybe several simulations to achieve plausible results.
+
+**input.json**: $X=672724: Y= 152145$\
+`"X_coord": 672724,`
+`"Y_coord": 152145,`
 
 **A digital terrain model**
 
