@@ -3,7 +3,7 @@
 A two dimensional runout simulation tool for debris flows to predict inundation areas on torrential fans.
 
 ```         
-<video src="/docs/random_walk.mp4" width="320" height="240" controls></video> 
+<video src="./docs/random_walk.mp4" width="320" height="240" controls> </video> 
 ```
 
 ## Features
