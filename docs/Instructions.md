@@ -41,7 +41,7 @@ Starting point can be a distinct change within the longitudinal flow-profile (si
 The digital terrain model (DTM) has to be provided in ASCII-format to assure being independent from any commercial GIS program. pyTopRunDF was
 tested with LiDAR based digital terrain data showing a level of detail of 2.5 x 2.5 m.
 
-To convert a geotif into an ascii grid you can use the [geotiff2ascii](./helper/geotiff2ascii.py) function.
+To convert a geotif into an ascii grid you can use the [geotiff2ascii](pyTopRunDF/helper/geotiff2ascii.py) function.
 
 ``` bash
 python .\helper\geotiff2ascii.py your_input.tif ./DEM/topofan.asc
