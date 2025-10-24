@@ -9,7 +9,7 @@ Before starting a simulation with TopRunDF the following steps and procedures ha
 The volume must correspond to the unit of length measurement used for the projection of the digital terrain input model [topofan.asc](topofan.asc). In the example the volume is given in $m^3$.
 
 **input.json**\
-`"volume": **5000**,`
+`"volume": 5000,`
 
 **A mobility coefficient**
 
