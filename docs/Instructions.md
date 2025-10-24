@@ -2,7 +2,7 @@
 
 ## Preprocessing
 
-Before starting a simulation with TopRunDF the following steps and procedures have to be accomplished and considered by the user. The main input parameters are:
+Before starting a simulation with pyTopRunDF the following steps and procedures have to be accomplished and considered by the user. The main input parameters are:
 
 **A volume of the debris-flow event to be simulated -** $V$
 
@@ -29,12 +29,20 @@ If $k_{Bpred}$ is used, an uncertainty of a factor of two must be considered. Se
 **A start point of the simulation -** $X | Y$
 
 The user needs to declare a starting point of the simulation in $X$ (easting) and $Y$ (northing) coordinates. Those coordinates must lay within the applied digital terrain model and have to be defined in the same projection.\
-Starting point can be a distinct change within the longitudinal flow-profile (significant change in slope gradient at fan apex) or obstacles forcing the debris flow to deposit. TopRunDF reacts sensitively to the starting point, which is why the program changes the starting point after each single flow path and randomly sets a new one in a buffer around the initial starting cell (default maximum buffer = 3 cells). However, the user might need to accomplish maybe several simulations to achieve plausible results.
+Starting point can be a distinct change within the longitudinal flow-profile (significant change in slope gradient at fan apex) or obstacles forcing the debris flow to deposit. pyTopRunDF reacts sensitively to the starting point, which is why the program changes the starting point after each single flow path and randomly sets a new one in a buffer around the initial starting cell (default maximum buffer = 3 cells). However, the user might need to accomplish maybe several simulations to achieve plausible results.
 
 **input.json**: $X=672724: Y= 152145$\
-`"X_coord": 672724,`
+`"X_coord": 672724,`\
 `"Y_coord": 152145,`
+
 
 **A digital terrain model**
 
-> 
+The digital terrain model (DTM) has to be provided in ASCII-format to assure being independent from any commercial GIS program. pyTopRunDF was
+tested with LiDAR based digital terrain data showing a level of detail of 2.5 x 2.5 m.
+
+To convert a geotif into an ascii grid you can use the [geotiff2ascii](./helper/geotiff2ascii.py) function.
+
+``` bash
+python .\helper\geotiff2ascii.py your_input.tif ./DEM/topofan.asc
+```
