@@ -2,7 +2,7 @@
 
 A two dimensional runout simulation tool for debris flows to predict inundation areas on torrential fans.
 
-[![Watch the video](./docs/geometric%20similarity.png)](./docs/random_walk.mp4)
+[![Watch the video](./docs/geometric%20similarity.png){width="405"}](./docs/random_walk.mp4)
 
 ## Features
 
