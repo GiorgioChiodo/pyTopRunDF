@@ -2,6 +2,12 @@
 
 A two dimensional runout simulation tool for debris flows to predict inundation areas on torrential fans.
 
+<video width="320" height="240" controls>
+
+<source src="./docs/random_walk.mp4" type="video/mp4">
+
+</video>
+
 ## Features
 
 -   Model potential 2D debris-flow deposition (heights) based on a given event volume and a mobility coefficient.
