@@ -76,7 +76,7 @@ Project Structure:
 ```         
 pyTopRunDF/
 ├── TopRunDF.py:          Main script for the simulation.
-├── input.csv:            Input data file.
+├── input.json:            Input data file.
 ├── DEM/
 │   ├── topofan.asc:      Input digital terrain model (DTM).
 │   └── depo.asc:         Output deposition raster.
