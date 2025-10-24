@@ -68,8 +68,7 @@ python TopRunDF.py
 
 ### Step 5: View the Results
 
-The script will generate output files (e.g., depo.asc) and display a plot of the results.
-Check the output directory for the generated files.
+The script will generate output files (e.g., depo.asc) and display a plot of the results. Check the output directory for the generated files.
 
 Project Structure:
 

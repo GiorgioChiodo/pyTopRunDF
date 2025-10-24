@@ -4,12 +4,15 @@
 
 Before starting a simulation with TopRunDF the following steps and procedures have to be accomplished and considered by the user. The main input parameters are:
 
-> **A volume of the debris-flow event to be simulated**
->
-> The volume must correspond to the unit of length measurement used for the projection of the digital terrain input model [topofan.asc](topofan.asc). In the example the volume is given in $m^3$.
+**A volume of the debris-flow event to be simulated**
 
-> **A mobility coefficient**
->
+The volume must correspond to the unit of length measurement used for the projection of the digital terrain input model [topofan.asc](topofan.asc). In the example the volume is given in $m^3$.
+
+**input.json**\
+`"volume": **5000**,`
+
+**A mobility coefficient**
+
 > The mobility coefficient $k_B$ is a dimensionless parameter and has to be defined by the user. For back calculation it is recommended to estimate $k_{obs}$ using the empirical relation:
 >
 > $k_{obs}=B_{obs}V_{obs}^{-2/3}$ (1)
@@ -20,8 +23,10 @@ Before starting a simulation with TopRunDF the following steps and procedures ha
 >
 > If $k_{Bpred}$ is used, an uncertainty of a factor of two must be considered. See [Rickenmann et al. (2009)](https://www.e-periodica.ch/digbib/view?pid=wel-004%3A2010%3A102%3A%3A42) (in german), [Scheidl and Rickenmann, 2009](https://onlinelibrary.wiley.com/doi/abs/10.1002/esp.1897) for more details.
 
-> **A start point of the simulation**
+**A start point of the simulation**
 
-> **A digital terrain model**
+> 
 
-### Mobility coeffcient
+**A digital terrain model**
+
+> 
