@@ -4,113 +4,130 @@ Created on Thu Feb 20 13:11:54 2020
 
 @author: cscheidl
 """
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Feb 20 13:11:54 2020
+
+@author: cscheidl
+"""
 class MonteCarloSingleFlowPath():
-    def __init__(self,raster,band2,position,temp_height):
-        self.startrastercells=band2
-        self.dem=raster
-        self.startcell=position
-        self.artificalheight=temp_height
-        #self.articficalrasterheight=band2
+    def __init__(self, raster, band2, position, temp_height, current_dem=None):
+        self.startrastercells = band2
+        self.dem = raster
+        # WICHTIG: Verwende aktualisiertes DEM falls vorhanden, sonst Original
+        self.current_dem = current_dem if current_dem is not None else raster.read(1)
+        self.startcell = position
+        self.artificalheight = temp_height
+        
     def NextStartCell(self):
         import numpy as np
         rowPosition = self.startcell[0]
         colPosition = self.startcell[1]
-        #self.startrastercells[rowPosition,colPosition]=True
-      # Adjacent cells positions
+        
+        # Adjacent cells positions
         adjacentBelow = rowPosition + 1
         adjacentUpper = rowPosition - 1
         adjacentLeft = colPosition - 1
         adjacentRight = colPosition + 1
-           # Check if adjacent cells positions are out of raster positions limits
+        
+        # Check if adjacent cells positions are out of raster positions limits
         if adjacentBelow < self.dem.height:
-            if self.startrastercells[adjacentBelow,colPosition]==False:
-               belowBound = True
+            if self.startrastercells[adjacentBelow, colPosition] == False:
+                belowBound = True
             else:
-               belowBound=False
+                belowBound = False
         else: 
-               belowBound = False
-        if adjacentUpper >0:
-            if self.startrastercells[adjacentUpper,colPosition]==False:
-               upperBound = True
+            belowBound = False
+            
+        if adjacentUpper > 0:
+            if self.startrastercells[adjacentUpper, colPosition] == False:
+                upperBound = True
             else:
-               upperBound = False
-        else: 
                 upperBound = False
-        if adjacentLeft >0:
-            if self.startrastercells[rowPosition,adjacentLeft]==False:
-               leftBound = True
-            else:
-               leftBound = False
         else: 
+            upperBound = False
+            
+        if adjacentLeft > 0:
+            if self.startrastercells[rowPosition, adjacentLeft] == False:
+                leftBound = True
+            else:
                 leftBound = False
-        if adjacentRight < self.dem.width:
-            if self.startrastercells[rowPosition,adjacentRight]==False:
-               rightBound = True
-            else:
-               rightBound = False
         else: 
+            leftBound = False
+            
+        if adjacentRight < self.dem.width:
+            if self.startrastercells[rowPosition, adjacentRight] == False:
+                rightBound = True
+            else:
                 rightBound = False
-        if upperBound==True :
-            diff1=self.dem.read(1)[rowPosition,colPosition] - self.dem.read(1)[adjacentUpper,colPosition]
-            if (diff1+self.artificalheight)<=0: #or belowBound==False or leftBound==False or rightBound==False:
-                diff1=0
-                position1=[0,0]
+        else: 
+            rightBound = False
+            
+        # GEÄNDERT: Verwende self.current_dem statt self.dem.read(1)
+        if upperBound == True:
+            diff1 = self.current_dem[rowPosition, colPosition] - self.current_dem[adjacentUpper, colPosition]
+            if (diff1 + self.artificalheight) <= 0:
+                diff1 = 0
+                position1 = [0, 0]
             else:
-                position1=[adjacentUpper,colPosition] 
-                if diff1<0:
-                   diff1=diff1 + self.artificalheight
+                position1 = [adjacentUpper, colPosition] 
+                if diff1 < 0:
+                    diff1 = diff1 + self.artificalheight
                 else:
-                   diff1=diff1
+                    diff1 = diff1
         else:
-            diff1=0
-            position1=[0,0]
-        if rightBound==True :
-            diff2=self.dem.read(1)[rowPosition,colPosition] - self.dem.read(1)[rowPosition,adjacentRight]
-            if (diff2+self.artificalheight)<=0: #or belowBound==False or leftBound==False or  rightBound==False:
-                diff2=0
-                position2=[0,0]
+            diff1 = 0
+            position1 = [0, 0]
+            
+        if rightBound == True:
+            diff2 = self.current_dem[rowPosition, colPosition] - self.current_dem[rowPosition, adjacentRight]
+            if (diff2 + self.artificalheight) <= 0:
+                diff2 = 0
+                position2 = [0, 0]
             else:
-                position2=[rowPosition,adjacentRight]
-                if diff2<0:
-                   diff2=diff2 + self.artificalheight
+                position2 = [rowPosition, adjacentRight]
+                if diff2 < 0:
+                    diff2 = diff2 + self.artificalheight
                 else:
-                   diff2=diff2
+                    diff2 = diff2
         else:
-            diff2=0
-            position2=[0,0]
-        if belowBound==True:
-            diff3=self.dem.read(1)[rowPosition,colPosition] - self.dem.read(1)[adjacentBelow,colPosition]
-            if (diff3+self.artificalheight)<=0: #or belowBound==False or  leftBound==False or rightBound==False:
-                diff3=0
-                position3=[0,0]
+            diff2 = 0
+            position2 = [0, 0]
+            
+        if belowBound == True:
+            diff3 = self.current_dem[rowPosition, colPosition] - self.current_dem[adjacentBelow, colPosition]
+            if (diff3 + self.artificalheight) <= 0:
+                diff3 = 0
+                position3 = [0, 0]
             else:
-                position3=[adjacentBelow,colPosition]
-                if diff3<0:
-                   diff3=diff3 + self.artificalheight
+                position3 = [adjacentBelow, colPosition]
+                if diff3 < 0:
+                    diff3 = diff3 + self.artificalheight
                 else:
-                   diff3=diff3
+                    diff3 = diff3
         else:
-            diff3=0
-            position3=[0,0]
-        if leftBound==True :
-            diff4=self.dem.read(1)[rowPosition,colPosition] - self.dem.read(1)[rowPosition,adjacentLeft]
-            if (diff4+self.artificalheight)<=0: #or  belowBound==False or  leftBound==False or rightBound==False:
-                diff4=0
-                position4=[0,0]
+            diff3 = 0
+            position3 = [0, 0]
+            
+        if leftBound == True:
+            diff4 = self.current_dem[rowPosition, colPosition] - self.current_dem[rowPosition, adjacentLeft]
+            if (diff4 + self.artificalheight) <= 0:
+                diff4 = 0
+                position4 = [0, 0]
             else:
-                position4=[rowPosition,adjacentLeft]
-                if diff4<0:
-                   diff4=diff4 + self.artificalheight
+                position4 = [rowPosition, adjacentLeft]
+                if diff4 < 0:
+                    diff4 = diff4 + self.artificalheight
                 else:
-                   diff4=diff4
+                    diff4 = diff4
         else:
-            diff4=0
-            position4=[0,0]
-        summe=diff1+diff2+diff3+diff4
-        #print(summe)
-        if summe==0:
-            newcell=[0,0]
-            #print('MIST!')
+            diff4 = 0
+            position4 = [0, 0]
+            
+        summe = diff1 + diff2 + diff3 + diff4
+        
+        if summe == 0:
+            newcell = [0, 0]
         else:
             valid_positions = []
             valid_probabilities = []
@@ -127,19 +144,16 @@ class MonteCarloSingleFlowPath():
             if diff4 > 0:
                 valid_positions.append(position4)
                 valid_probabilities.append(diff4 / summe)
+                
             # Normiere die Wahrscheinlichkeiten, um Rundungsfehler zu vermeiden
             valid_probabilities = np.array(valid_probabilities)
             valid_probabilities /= valid_probabilities.sum()
+            
             # Konvertiere die Liste der gültigen Positionen in ein numpy-Array
             allpos = np.array(valid_positions)
-            if len(allpos) > 0:  # Überprüfe, ob es gültige Zellen gibt
+            if len(allpos) > 0:
                 newcell = allpos[np.random.choice(len(allpos), size=None, replace=True, p=valid_probabilities)]
             else:
-                newcell = [0, 0]  # Fallback, falls keine gültigen Zellen vorhanden sind
-          #prob=(diff1/summe,diff2/summe,diff3/summe,diff4/summe,0)
-          #print(prob)
-          #allpos=np.array([position1,position2,position3,position4,[0,0]])
-          #print(allpos)
-          #newcell = np.random.choice(len(allpos), size=None, replace=True, p=prob)
-          #newcell=np.random.choice(allpos, size=None, replace=True, p=prob)  
+                newcell = [0, 0]
+                
         return newcell
